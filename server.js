@@ -8,9 +8,15 @@ const notFoundMiddleware = require("./middlewares/notFound")
 const app = express()
 const PORT = 3000
 
+// middleware globale
 app.use(logTimeMiddleware)
 
+// middleware di rotta
+// app.use("/bacheca",logTimeMiddleware)
+
 app.use(express.static("public"))
+
+// body-parser
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -39,8 +45,9 @@ app.get("/debug", (req, res) => {
 
 app.use( "/bacheca", blogRouter);
 
-
+// Rotta non trovata
 app.use(notFoundMiddleware)
+// Server error
 app.use(errorsHandlerMiddleware)
 
 app.listen(PORT, () => {

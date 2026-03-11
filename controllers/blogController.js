@@ -3,7 +3,6 @@ const db = require("../db/index")
 
 /* ----------------- FUNZIONI CON DB --------------------- */
 async function index(req, res) {
-	let results = [];
 
 	// console.log(req.query)
 	const limit = req.query.limit ?? 10;
@@ -26,8 +25,6 @@ async function index(req, res) {
 
 async function show(req, res) {
 	const id = parseInt(req.params.id)
-
-	let result = null;
 
 	const statement = `SELECT id, title, tags, date FROM posts WHERE id = $1`;
 	const params = [id];
@@ -106,7 +103,7 @@ async function update(req, res) {
 	const { rows, rowCount } = await db.query(statement, params);
 
 	const success = (rowCount == 1);
-	const statusCode = success ? 201 : 404;
+	const statusCode = success ? 200 : 404;
 
 	const response = {
 		success,
@@ -138,7 +135,7 @@ async function destroy(req, res) {
 	const { rows, rowCount } = await db.query(statement, params);
 
 	const success = (rowCount == 1);
-	const statusCode = success ? 201 : 404;
+	const statusCode = success ? 204 : 404;
 
 	const response = {
 		success,
